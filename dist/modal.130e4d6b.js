@@ -117,83 +117,23 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
+})({"modal.js":[function(require,module,exports) {
+(function () {
+  var refs = {
+    openModalBtn: document.querySelector("[data-modal-open]"),
+    openModalBtnMob: document.querySelector("[data-modal-open-mob]"),
+    closeModalBtn: document.querySelector("[data-modal-close]"),
+    modal: document.querySelector("[data-modal]")
   };
+  refs.openModalBtn.addEventListener("click", toggleModal);
+  refs.openModalBtnMob.addEventListener("click", toggleModal);
+  refs.closeModalBtn.addEventListener("click", toggleModal);
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
+  function toggleModal() {
+    refs.modal.classList.toggle("is-hidden");
   }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"sass/main.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../images/img/products/icecream-png-2.jpg":[["icecream-png-2.965d4a44.jpg","images/img/products/icecream-png-2.jpg"],"images/img/products/icecream-png-2.jpg"],"./../images/img/about/how-its-made-bg-mb.png":[["how-its-made-bg-mb.28176cfb.png","images/img/about/how-its-made-bg-mb.png"],"images/img/about/how-its-made-bg-mb.png"],"./../images/img/about/how-its-made-dt-bg.png":[["how-its-made-dt-bg.18a07850.png","images/img/about/how-its-made-dt-bg.png"],"images/img/about/how-its-made-dt-bg.png"],"./../images/svg/quotes.svg":[["quotes.320f1414.svg","images/svg/quotes.svg"],"images/svg/quotes.svg"],"./../images/svg/points.svg":[["points.3c168132.svg","images/svg/points.svg"],"images/svg/points.svg"],"./../images/svg/dots.svg":[["dots.60bf0c7a.svg","images/svg/dots.svg"],"images/svg/dots.svg"],"./../images/img/products/icecream-mob.png":[["icecream-mob.dcb8ffa2.png","images/img/products/icecream-mob.png"],"images/img/products/icecream-mob.png"],"./../images/img/products/icecream-mob-2x.png":[["icecream-mob-2x.26c87229.png","images/img/products/icecream-mob-2x.png"],"images/img/products/icecream-mob-2x.png"],"./../images/img/products/icecream-tab.png":[["icecream-tab.8de92516.png","images/img/products/icecream-tab.png"],"images/img/products/icecream-tab.png"],"./../images/img/products/icecream-tab-2x.png":[["icecream-tab-2x.98acc442.png","images/img/products/icecream-tab-2x.png"],"images/img/products/icecream-tab-2x.png"],"./../images/img/products/ice-cream.png":[["ice-cream.81d5e60f.png","images/img/products/ice-cream.png"],"images/img/products/ice-cream.png"],"./../images/img/products/ice-cream-2x.png":[["ice-cream-2x.4e2a74d1.png","images/img/products/ice-cream-2x.png"],"images/img/products/ice-cream-2x.png"],"./../images/img/products/icecoffee-mob.png":[["icecoffee-mob.a1f34fab.png","images/img/products/icecoffee-mob.png"],"images/img/products/icecoffee-mob.png"],"./../images/img/products/icecoffee-mob-2x.png":[["icecoffee-mob-2x.92124a4e.png","images/img/products/icecoffee-mob-2x.png"],"images/img/products/icecoffee-mob-2x.png"],"./../images/img/products/icecoffee-tab.png":[["icecoffee-tab.623c2dc9.png","images/img/products/icecoffee-tab.png"],"images/img/products/icecoffee-tab.png"],"./../images/img/products/icecoffee-tab-2x.png":[["icecoffee-tab-2x.101bdb2d.png","images/img/products/icecoffee-tab-2x.png"],"images/img/products/icecoffee-tab-2x.png"],"./../images/img/products/icecoffee.png":[["icecoffee.ee233dbe.png","images/img/products/icecoffee.png"],"images/img/products/icecoffee.png"],"./../images/img/products/icecoffee-2x.png":[["icecoffee-2x.6779405b.png","images/img/products/icecoffee-2x.png"],"images/img/products/icecoffee-2x.png"],"./../images/img/products/milkshake-mob.png":[["milkshake-mob.6efc71b7.png","images/img/products/milkshake-mob.png"],"images/img/products/milkshake-mob.png"],"./../images/img/products/milkshake-mob-2x.png":[["milkshake-mob-2x.a1c28871.png","images/img/products/milkshake-mob-2x.png"],"images/img/products/milkshake-mob-2x.png"],"./../images/img/products/milkshake-tab.png":[["milkshake-tab.c8379aea.png","images/img/products/milkshake-tab.png"],"images/img/products/milkshake-tab.png"],"./../images/img/products/milkshake-tab-2x.png":[["milkshake-tab-2x.76b74564.png","images/img/products/milkshake-tab-2x.png"],"images/img/products/milkshake-tab-2x.png"],"./../images/img/products/milkshake.png":[["milkshake.c41ef2eb.png","images/img/products/milkshake.png"],"images/img/products/milkshake.png"],"./../images/img/products/milkshake-2x.png":[["milkshake-2x.9903544b.png","images/img/products/milkshake-2x.png"],"images/img/products/milkshake-2x.png"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
-"use strict";
-
-require("./sass/main.scss");
-},{"./sass/main.scss":"sass/main.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})();
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -397,5 +337,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/src.e31bb0bc.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","modal.js"], null)
+//# sourceMappingURL=/modal.130e4d6b.js.map
